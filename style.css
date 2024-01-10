@@ -1,0 +1,36 @@
+body {
+    background-color: #323232;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  table {
+    border-collapse: collapse;
+    border: 5px solid white;
+    width: 100%;
+  }
+  
+  td {
+    border: 5px solid white;
+    height: 50px;
+    text-align: center;
+    width: 50px;
+  }
+  
+  tr:first-child td {
+    border-top: none;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+  
+  td:first-child {
+    border-left: none;
+  }
+  
+  td:last-child {
+    border-right: none;
+  }
+  
