@@ -1,29 +1,61 @@
 body {
     background-color: #323232;
     font-family: 'Open Sans', sans-serif;
-    color: white; /* Textfarbe auf Weiß */
-  }
-  
-  table {
+    color: white;
+    margin: 0;
+    /* Textfarbe auf Weiß */
+}
+
+h1{
+    text-align: center;
+}
+
+#content{
+    display: flex;
+    align-items: center;
+    margin-top: 256px;
+}
+
+table {
     border-collapse: collapse;
-    width: 300px; /* Festlegen der Tabellebreite */
-    margin: 20px auto; /* Zentrieren der Tabelle */
-  }
-  
-  td {
-    width: 50px;
-    height: 50px;
-    border: 5px solid white; /* Weiße Border mit 5px Dicke */
-    text-align: center; /* Zentrieren des Textes in den Zellen */
+    margin: 20px auto;
+    /* Zentrieren der Tabelle */
+}
+
+td {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    /* Zentrieren des Textes in den Zellen */
     font-size: 24px;
-  }
-  
-  /* Optional: Hinzufügen von Stilen für Zeilen und Spalten (z.B., Hervorhebung bei Hover) */
-  tr:hover {
-    background-color: #555; /* Hintergrundfarbe bei Hover */
-  }
-  
-  td:hover {
-    background-color: #777; /* Hintergrundfarbe bei Hover */
-  }
-  
+    padding: 0;
+    /* Kein Innenabstand für die Zellen */
+}
+
+td,
+th {
+    border: 0;
+    /* Entferne alle Border-Eigenschaften */
+}
+
+td:not(:last-child),
+th:not(:last-child) {
+    border-right: 5px solid white;
+    /* Weiße Border mit 5px Dicke für die inneren Trennlinien */
+}
+
+tr:not(:last-child) td {
+    border-bottom: 5px solid white;
+    /* Weiße Border mit 5px Dicke für die inneren Trennlinien */
+}
+
+
+/* tr:hover {
+    background-color: #555;
+    
+} */
+
+td:hover {
+    background-color: #777;
+    /* Hintergrundfarbe bei Hover */
+}
