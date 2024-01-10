@@ -1,36 +1,29 @@
 body {
     background-color: #323232;
     font-family: 'Open Sans', sans-serif;
-    margin: 0;
-    padding: 0;
+    color: white; /* Textfarbe auf Weiß */
   }
   
   table {
     border-collapse: collapse;
-    border: 5px solid white;
-    width: 100%;
+    width: 300px; /* Festlegen der Tabellebreite */
+    margin: 20px auto; /* Zentrieren der Tabelle */
   }
   
   td {
-    border: 5px solid white;
-    height: 50px;
-    text-align: center;
     width: 50px;
+    height: 50px;
+    border: 5px solid white; /* Weiße Border mit 5px Dicke */
+    text-align: center; /* Zentrieren des Textes in den Zellen */
+    font-size: 24px;
   }
   
-  tr:first-child td {
-    border-top: none;
+  /* Optional: Hinzufügen von Stilen für Zeilen und Spalten (z.B., Hervorhebung bei Hover) */
+  tr:hover {
+    background-color: #555; /* Hintergrundfarbe bei Hover */
   }
   
-  tr:last-child td {
-    border-bottom: none;
-  }
-  
-  td:first-child {
-    border-left: none;
-  }
-  
-  td:last-child {
-    border-right: none;
+  td:hover {
+    background-color: #777; /* Hintergrundfarbe bei Hover */
   }
   
