@@ -10,6 +10,12 @@ let fields = [
   null,
 ];
 
+const wincombos = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // vertical
+  [0, 4, 8], [2, 4, 6], // diagonal
+];
+
 let currentPlayer = 'circle'; // Startspieler
 
 function init() {
@@ -64,19 +70,69 @@ function handleCellClick(index) {
     // Wechsle den Spieler
     currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
 
+    if (isGameFinished()) {
+      const winCombination = getWinningCombination();
+      drawWinningLine(winCombination);
+    }
+
     // Aktualisiere die Anzeige
     renderCell(index);
   }
 }
 
+function isGameFinished() {
+  return fields.every((field) => field !== null) || getWinningCombination() !== null;
+}
+
+function getWinningCombination() {
+  for (let i = 0; i < wincombos.length; i++) {
+      const [a, b, c] = wincombos[i];
+      if (fields[a] === fields[b] && fields[b] === fields[c] && fields[a] !== null) {
+          return wincombos[i];
+      }
+  }
+  return null;
+}
+
 function renderCell(index) {
+  // Hole das <td>-Element an der gegebenen Index-Position
   const cell = document.getElementsByTagName('td')[index];
+
+  // Generiere den HTML-Inhalt für die Zelle basierend auf dem Wert im fields-Array
   const cellContent = fields[index] === 'circle' ? generateAnimatedCircleSVG() : generateAnimatedCrossSVG();
+
+  // Setze den generierten HTML-Inhalt als Inhalt der Zelle
   cell.innerHTML = cellContent;
+
+  // Entferne das 'onclick'-Attribut, um weitere Klicks zu verhindern
   cell.removeAttribute('onclick');
 }
 
-// Hier füge deine bestehenden SVG-Generierungsfunktionen ein (generateCircleSVG, generateCrossSVG)
+
+function drawWinningLine(combination) {
+  const lineColor = '#ffffff';
+  const lineWidth = 5;
+
+  const startCell = document.querySelectorAll(`td`)[combination[0]];
+  const endCell = document.querySelectorAll(`td`)[combination[2]];
+  const startRect = startCell.getBoundingClientRect();
+  const endRect = endCell.getBoundingClientRect();
+
+  const lineLength = Math.sqrt(
+      Math.pow(endRect.left - startRect.left, 2) + Math.pow(endRect.top - startRect.top, 2)
+  );
+  const lineAngle = Math.atan2(endRect.top - startRect.top, endRect.left - startRect.left);
+
+  const line = document.createElement('div');
+  line.style.position = 'absolute';
+  line.style.width = `${lineLength}px`;
+  line.style.height = `${lineWidth}px`;
+  line.style.backgroundColor = lineColor;
+  line.style.top = `${ startRect.top + startRect.height / 2 - lineWidth / 2 } px`;
+  line.style.left = `${ startRect.left + startRect.width / 2 } px`;
+  line.style.transform = `rotate(${ lineAngle }rad)`;
+  document.getElementById('content').appendChild(line);
+}
 
 
 function generateAnimatedCircleSVG() {
@@ -113,3 +169,4 @@ function generateAnimatedCrossSVG() {
 
   return svgHtml;
 }
+
