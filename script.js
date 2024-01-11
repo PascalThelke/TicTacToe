@@ -80,19 +80,31 @@ function handleCellClick(index) {
   }
 }
 
+// Überprüft, ob das Spiel beendet ist, entweder durch ein Unentschieden oder einen Gewinner
 function isGameFinished() {
+  // Überprüfe, ob alle Felder belegt sind (Unentschieden)
+  // oder ob es eine Gewinnkombination gibt
   return fields.every((field) => field !== null) || getWinningCombination() !== null;
 }
 
+// Ermittelt die Gewinnkombination, falls vorhanden
 function getWinningCombination() {
+  // Iteriere durch alle möglichen Gewinnkombinationen
   for (let i = 0; i < wincombos.length; i++) {
+    // Extrahiere die Indizes der drei Felder in der aktuellen Kombination
     const [a, b, c] = wincombos[i];
+    
+    // Überprüfe, ob alle drei Felder den gleichen Wert haben (nicht null)
     if (fields[a] === fields[b] && fields[b] === fields[c] && fields[a] !== null) {
+      // Wenn ja, gebe die Gewinnkombination zurück
       return wincombos[i];
     }
   }
+
+  // Falls keine Gewinnkombination gefunden wurde, gebe null zurück
   return null;
 }
+
 
 function renderCell(index) {
   // Hole das <td>-Element an der gegebenen Index-Position
@@ -172,3 +184,17 @@ function generateAnimatedCrossSVG() {
   return svgHtml;
 }
 
+function restartGame(){
+  fields = [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+  ];
+  render();
+}
