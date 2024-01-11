@@ -1,15 +1,16 @@
 let fields = [
-  'circle',
-  null,
-  null,
-  'cross',
   null,
   null,
   null,
   null,
   null,
-
+  null,
+  null,
+  null,
+  null,
 ];
+
+let currentPlayer = 'circle'; // Startspieler
 
 function init() {
   render();
@@ -34,7 +35,8 @@ function render() {
         cellContent = generateAnimatedCrossSVG();
       }
 
-      tableHTML += `<td>${cellContent}</td>`;
+      // Füge das onclick-Attribut hinzu und rufe die handleCellClick-Funktion auf
+      tableHTML += `<td onclick="handleCellClick(${index})">${cellContent}</td>`;
     }
     tableHTML += '</tr>';
   }
@@ -44,6 +46,38 @@ function render() {
   // Füge den HTML-String zur innerHTML des 'content'-Elements hinzu
   content.innerHTML = tableHTML;
 }
+
+function handleCellClick(index) {
+  if (fields[index] === null) {
+    // Setze das entsprechende Feld im Array
+    fields[index] = currentPlayer;
+
+    // Rufe die entsprechende SVG-Funktion auf
+    const cellContent = currentPlayer === 'circle' ? generateAnimatedCircleSVG() : generateAnimatedCrossSVG();
+
+    // Füge den HTML-Code in das angeklickte <td>-Element ein
+    document.getElementsByTagName('td')[index].innerHTML = cellContent;
+
+    // Entferne das onclick-Attribut, um weitere Klicks zu verhindern
+    document.getElementsByTagName('td')[index].removeAttribute('onclick');
+
+    // Wechsle den Spieler
+    currentPlayer = currentPlayer === 'circle' ? 'cross' : 'circle';
+
+    // Aktualisiere die Anzeige
+    renderCell(index);
+  }
+}
+
+function renderCell(index) {
+  const cell = document.getElementsByTagName('td')[index];
+  const cellContent = fields[index] === 'circle' ? generateAnimatedCircleSVG() : generateAnimatedCrossSVG();
+  cell.innerHTML = cellContent;
+  cell.removeAttribute('onclick');
+}
+
+// Hier füge deine bestehenden SVG-Generierungsfunktionen ein (generateCircleSVG, generateCrossSVG)
+
 
 function generateAnimatedCircleSVG() {
   const color = '#00B0EF';
